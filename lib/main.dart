@@ -53,42 +53,31 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-      body: SafeArea(
-        child: Row(
-          children: [
-            Container(width:300.0,child: AdminDrawer()),
-            Expanded(child: Container()),
-          ],
-        ),
-      ),
-    ));
-    //   return MaterialApp(
-    //   home: isLoading
-    //       ? Scaffold(
-    //           body: Center(
-    //             child: Column(
-    //               mainAxisSize: MainAxisSize.min,
-    //               children: const [
-    //                 CircularProgressIndicator(),
-    //                 SizedBox(
-    //                   height: 20.0,
-    //                 ),
-    //                 Text(
-    //                   "Loading...",
-    //                   style: TextStyle(fontSize: 22.0),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         )
-    //       : user == "false"
-    //           ? DashBar()
-    //           : user == "admin"
-    //               ? AdminDashScreen()
-    //               : DashboardScreen(),
-    //   debugShowCheckedModeBanner: false,
-    // );
+      return MaterialApp(
+      home: isLoading
+          ? Scaffold(
+              body: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    CircularProgressIndicator(),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(
+                      "Loading...",
+                      style: TextStyle(fontSize: 22.0),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : user == "false"
+              ? DashBar()
+              : user == "admin"
+                  ? AdminDashScreen()
+                  : DashboardScreen(),
+      debugShowCheckedModeBanner: false,
+    );
   }
 }
