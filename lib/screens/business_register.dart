@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:securing_documents/models/user_model.dart';
-import 'package:securing_documents/screens/dash.dart';
+import 'package:securing_documents/screens/landing_screen.dart';
 import 'package:securing_documents/screens/top_nav.dart';
 import 'package:securing_documents/screens/login_screen.dart';
 import 'package:securing_documents/services/database_services.dart';

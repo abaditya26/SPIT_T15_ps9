@@ -1,3 +1,6 @@
+import 'package:securing_documents/screens/requestDocumentScreen.dart';
+
+import 'checkTras_screen.dart';
 import 'side_nav.dart';
 import 'top_nav.dart';
 import 'package:flutter/material.dart';
@@ -18,52 +21,81 @@ class _user_dashState extends State<user_dash> {
         body: Row(
           children: [
             Container(
-              child: AdminDrawer(),
+              child: const AdminDrawer(),
             ),
             Expanded(
               child: Column(
                 children: [
                   Container(
-                    child: DashboardScreen(),
+                    child: const DashboardScreen(),
                   ),
                   Container(
-                    margin: EdgeInsets.all(20),
-                    padding: EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Row(
-                      children: const [
-                        SizedBox(width: 30,),
-                        TransparentImageCard(
+                      children: [
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        InkWell(
+                          onTap:  (){Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                const CheckTransScreen()),
+                          );},
+                          child: const TransparentImageCard(
                             width: 250,
-                            imageProvider:
-                                AssetImage('assets/images/12345.png'),
-                            tags: [Text('Product')],
+                            imageProvider: AssetImage('assets/images/12345.png'),
                             title: Text(
                               'tmep',
                               style: TextStyle(color: Colors.white),
                             ),
-                            ),
-                        SizedBox(width: 30,),
-                        TransparentImageCard(
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                  const RequestDocumentScreen()),
+                            );
+                          },
+                          child: const TransparentImageCard(
                             width: 250,
-                            imageProvider:
-                                AssetImage('assets/images/12345.png'),
-                            tags: [Text('Product')],
+                            imageProvider: AssetImage('assets/images/12345.png'),
                             title: Text(
                               'Request Certification',
                               style: TextStyle(color: Colors.white),
                             ),
-                            ),
-                        SizedBox(width: 30,),
-                        TransparentImageCard(
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const CheckTransScreen()),
+                            );
+                          },
+                          child: const TransparentImageCard(
                             width: 250,
                             imageProvider:
                                 AssetImage('assets/images/12345.png'),
-                            tags: [Text('Product')],
                             title: Text(
                               'Check Transaction History',
                               style: TextStyle(color: Colors.white),
                             ),
-                            ),
+                          ),
+                        ),
                       ],
                     ),
                   )

@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../services/auth_services.dart';
+
 class AdminDrawer extends StatelessWidget {
   //final bool web;
   //final void Function(int, bool, bool) changeScreen;
@@ -11,8 +13,6 @@ class AdminDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    
     double width = MediaQuery.of(context).size.width;
       return Container(
         child: Drawer(
@@ -40,7 +40,7 @@ class AdminDrawer extends StatelessWidget {
                     // ),
                     IconButton(
                         onPressed: () {
-                          //_auth.logout(context);
+                          AuthServices().signOutUser(context);
                         },
                         icon: const Icon(
                           CupertinoIcons.square_arrow_right,

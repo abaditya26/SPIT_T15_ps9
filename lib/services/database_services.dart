@@ -55,4 +55,10 @@ class DatabaseServices {
   Stream<QuerySnapshot> getUsers() {
     return _db.collection("users").orderBy("name").snapshots();
   }
+  Future<void> addTransactions(UserModel user) {
+    return _db.collection("transactions").doc(user.uid).set(user.toMap());
+  }
+  Stream<QuerySnapshot> getTransaction() {
+    return _db.collection("transactions").orderBy("id").snapshots();
+  }
 }

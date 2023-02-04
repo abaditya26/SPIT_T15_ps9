@@ -9,7 +9,7 @@ import 'package:securing_documents/screens/splash_screen.dart';
 import 'screens/business_register.dart';
 
 import 'screens/top_nav.dart';
-import 'screens/dash.dart';
+import 'screens/landing_screen.dart';
 import 'screens/temp.dart';
 import 'screens/new_register.dart';
 

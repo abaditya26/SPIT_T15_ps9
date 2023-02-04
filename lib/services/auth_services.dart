@@ -1,4 +1,4 @@
-import 'package:securing_documents/screens/dash.dart';
+import 'package:securing_documents/screens/landing_screen.dart';
 import 'package:securing_documents/screens/login_screen.dart';
 import 'package:securing_documents/services/database_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';

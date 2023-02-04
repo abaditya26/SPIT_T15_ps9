@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:securing_documents/screens/top_nav.dart';
-import 'package:securing_documents/screens/splash_screen.dart';
 import '../admin/screens/admin_dash_screen.dart';
 import '../services/auth_services.dart';
 import '../services/database_services.dart';
-import 'business_register.dart';
 import 'login_screen.dart';
+import 'new_register.dart';
 
 class DashBar extends StatefulWidget {
   @override
@@ -117,8 +113,8 @@ class _DashBarState extends State<DashBar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
                   child: Row(children: const <Widget>[
                     Icon(
                       Icons.business,
@@ -133,14 +129,14 @@ class _DashBarState extends State<DashBar> {
                 ),
 
                 Container(
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
                   child: GNav(
                       rippleColor: Colors.black45, // tab button ripple color when pressed
                       haptic: true, // haptic feedback
                       curve: Curves.easeOutExpo, // tab animation curves
-                      duration:
-                      Duration(milliseconds: 200),
+                      // duration:
+                      // const Duration(milliseconds: 100),
                       gap: 8, // the tab button gap between icon and text
                       color: Colors.grey[800], // unselected icon color
                       activeColor: Colors
@@ -151,11 +147,18 @@ class _DashBarState extends State<DashBar> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                           vertical: 5), // navigation bar padding
-                      tabs: const [
+                      tabs:  [
 
                         GButton(
                           icon: Icons.arrow_right,
                           text: 'Register',
+                          onPressed: (){
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                const new_registration()),
+                          );},
                         )
                       ]),
                 ),
@@ -174,7 +177,7 @@ class _DashBarState extends State<DashBar> {
                     ),
                   ),
                 ),
-                Expanded(child: LoginScreen()),
+                const Expanded(child: LoginScreen()),
               ],
             ),
           ],
