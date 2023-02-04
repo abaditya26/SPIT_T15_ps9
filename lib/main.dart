@@ -4,6 +4,7 @@ import 'package:securing_documents/admin/screens/admin_dash_screen.dart';
 import 'package:securing_documents/firebase_options.dart';
 import 'package:securing_documents/screens/dashboard_screen.dart';
 import 'package:securing_documents/screens/login_screen.dart';
+import 'package:securing_documents/screens/side_nav.dart';
 import 'package:securing_documents/screens/splash_screen.dart';
 import 'screens/business_register.dart';
 
@@ -53,30 +54,41 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: isLoading
-          ? Scaffold(
-              body: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    CircularProgressIndicator(),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Text(
-                      "Loading...",
-                      style: TextStyle(fontSize: 22.0),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          : user == "false"
-              ? DashBar()
-              : user == "admin"
-                  ? AdminDashScreen()
-                  : DashboardScreen(),
-      debugShowCheckedModeBanner: false,
-    );
+        home: Scaffold(
+      body: SafeArea(
+        child: Row(
+          children: [
+            Container(width:300.0,child: AdminDrawer()),
+            Expanded(child: Container()),
+          ],
+        ),
+      ),
+    ));
+    //   return MaterialApp(
+    //   home: isLoading
+    //       ? Scaffold(
+    //           body: Center(
+    //             child: Column(
+    //               mainAxisSize: MainAxisSize.min,
+    //               children: const [
+    //                 CircularProgressIndicator(),
+    //                 SizedBox(
+    //                   height: 20.0,
+    //                 ),
+    //                 Text(
+    //                   "Loading...",
+    //                   style: TextStyle(fontSize: 22.0),
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //         )
+    //       : user == "false"
+    //           ? DashBar()
+    //           : user == "admin"
+    //               ? AdminDashScreen()
+    //               : DashboardScreen(),
+    //   debugShowCheckedModeBanner: false,
+    // );
   }
 }
