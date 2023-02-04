@@ -2,6 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:securing_documents/models/user_model.dart';
+import 'package:securing_documents/screens/dashboard_screen.dart';
+import 'package:securing_documents/services/database_services.dart';
+import '../services/auth_services.dart';
 import 'form_components.dart';
 import 'dropdowntype.dart';
 
@@ -23,13 +27,15 @@ class _RegistrationWidget extends State<RegistrationWidget> {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  final _auth = AuthServices();
+  final _db = DatabaseServices();
   bool passwordVisibility = false;
   String phone = "";
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String? b_size;
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -50,9 +56,38 @@ class _RegistrationWidget extends State<RegistrationWidget> {
     print(b_size);
   }
 
-  Future signUp() async{
-    FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailAddressController.text, password: passwordController.text);
-// add user details
+  Future signUp() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailAddressController.text, password: passwordController.text);
+  // add user details
+    addUser();
+  }
+
+  addUser() {
+    final userModel = UserModel(
+      uid: _auth.getUid(),
+      email: emailAddressController.text,
+      type: b_size.toString(),
+      name: nameController.text,
+      contactNo: contactController.text,
+      address: addressController.text,
+    );
+    _db.addUserData(userModel).then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("SignUp Successful")));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const DashboardScreen()),
+      );
+    }).catchError((e) {
+      print(e);
+    });
   }
 
   @override
@@ -116,7 +151,7 @@ class _RegistrationWidget extends State<RegistrationWidget> {
 
                       Padding(
                         padding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                            const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -127,22 +162,24 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                                 controller: contactController,
                                 validator: (value) {
                                   return value != null
-                                      ? RegExp(r"^[6-9]\d{9}$")
-                                      .hasMatch(value)
-                                      ? null
-                                      : "Enter valid contact"
+                                      ? RegExp(r"^[6-9]\d{9}$").hasMatch(value)
+                                          ? null
+                                          : "Enter valid contact"
                                       : "Contact required";
                                 },
                                 obscureText: false,
-                                decoration: inputDecoration(labelText: 'Contact Number', hintText: 'Enter contact number here...'),
+                                decoration: inputDecoration(
+                                    labelText: 'Contact Number',
+                                    hintText: 'Enter contact number here...'),
                                 style: textStyle(),
-                                onChanged: (value) {phone = value;},
+                                onChanged: (value) {
+                                  phone = value;
+                                },
                               ),
                             ),
                           ],
                         ),
                       ),
-
 
                       Padding(
                         padding:
@@ -207,7 +244,7 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                       ),
                       Padding(
                         padding:
-                        const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                            const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -218,17 +255,15 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                                 controller: passwordController,
                                 validator: (value) {
                                   return value != null
-                                      ? RegExp(r"^.{8,}$")
-                                      .hasMatch(value)
-                                      ? null
-                                      : "Enter at-least 6 character password"
+                                      ? RegExp(r"^.{8,}$").hasMatch(value)
+                                          ? null
+                                          : "Enter at-least 6 character password"
                                       : "Password required";
                                 },
                                 obscureText: false,
                                 decoration: inputDecoration(
                                     labelText: 'Password',
-                                    hintText:
-                                    'Enter password here...'),
+                                    hintText: 'Enter password here...'),
                                 style: textStyle(),
                               ),
                             ),
@@ -263,7 +298,6 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                           ],
                         ),
                       ),
-
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
@@ -274,13 +308,6 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                             TextButton(
                               onPressed: () async {
                                 Navigator.pop(context);
-                                // await Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) =>
-                                //         ForgotPasswordWidget(),
-                                //   ),
-                                // );
                               },
                               style: TextButton.styleFrom(
                                 textStyle: GoogleFonts.lexend(
@@ -307,9 +334,7 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                                     )
                                   : ElevatedButton(
                                       onPressed: () {
-                                        // setState(() {
-                                        //   Navigator.push(context, MaterialPageRoute(builder: (context) => OTP_Validator_Page_Widget()));
-                                        // });
+                                        signUp();
                                       },
                                       style: ElevatedButton.styleFrom(
                                           shape: const StadiumBorder(),
