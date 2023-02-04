@@ -33,6 +33,7 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final _auth = AuthServices();
+  bool isLoading = true;
   String user = "false";
 
   @override
@@ -43,6 +44,7 @@ class _MainAppState extends State<MainApp> {
         widget.err = value["message"];
       }
       setState(() {
+        isLoading = false;
         user = value["role"];
       });
     });
@@ -51,13 +53,30 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: user == "false"
-          ? DashBar()
-          : user == "admin"
-              ? AdminDashScreen()
-              : DashboardScreen(),
+      home: isLoading
+          ? Scaffold(
+              body: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    CircularProgressIndicator(),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(
+                      "Loading...",
+                      style: TextStyle(fontSize: 22.0),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : user == "false"
+              ? DashBar()
+              : user == "admin"
+                  ? AdminDashScreen()
+                  : DashboardScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
-
