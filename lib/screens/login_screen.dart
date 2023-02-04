@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:securing_documents/screens/dashboard_screen.dart';
+import 'package:securing_documents/screens/splash_screen.dart';
+import '../admin/admin_dash_screen.dart';
+import '../services/auth_services.dart';
+import '../services/database_services.dart';
+import 'business_register.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -15,8 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   final _formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  // final _authServices = AuthServices();
-  // final _db = DatabaseServices();
+  final _authServices = AuthServices();
+  final _db = DatabaseServices();
 
   @override
   void initState() {
@@ -30,75 +37,68 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  // signIn() {
-  //   if (_formKey.currentState!.validate()) {
-  //     setState(() {
-  //       _isLoading = true;
-  //     });
-  //     _authServices
-  //         .signInWithEmail(emailAddressController.text, passwordController.text)
-  //         .then((credentials) {
-  //       try {
-  //         String uid = credentials.user!.uid;
-  //         _db.validateUser(uid).then((value) {
-  //           if (value["active"] == false) {
-  //             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //                 content: Text("User is disabled. Please Contact Admin.")));
-  //             _authServices.signOutUser(
-  //                 context, "User is disabled. Please Contact Admin.");
-  //             return;
-  //           }
-  //           if (value["admin"]) {
-  //             Navigator.pushAndRemoveUntil(
-  //                 context,
-  //                 PageTransition(
-  //                   type: PageTransitionType.scale,
-  //                   alignment: Alignment.center,
-  //                   duration: const Duration(milliseconds: 500),
-  //                   child: const admin_dashboard(),
-  //                 ),
-  //                     (route) => false);
-  //             ScaffoldMessenger.of(context).showSnackBar(
-  //                 const SnackBar(content: Text("Admin User Logged in")));
-  //           } else {
-  //             ScaffoldMessenger.of(context).showSnackBar(
-  //                 const SnackBar(content: Text("Employee logged in.")));
-  //             Navigator.pushAndRemoveUntil(
-  //                 context,
-  //                 PageTransition(
-  //                   type: PageTransitionType.scale,
-  //                   alignment: Alignment.center,
-  //                   duration: const Duration(milliseconds: 500),
-  //                   child: const UserDashboard(),
-  //                 ),
-  //                     (route) => false);
-  //           }
-  //           setState(() {
-  //             _isLoading = false;
-  //           });
-  //         }).catchError((e) {
-  //           ScaffoldMessenger.of(context)
-  //               .showSnackBar(SnackBar(content: Text("Error :- $e")));
-  //           setState(() {
-  //             _isLoading = false;
-  //           });
-  //         });
-  //       } catch (e) {
-  //         ScaffoldMessenger.of(context)
-  //             .showSnackBar(const SnackBar(content: Text("User not exists")));
-  //         setState(() {
-  //           _isLoading = false;
-  //         });
-  //       }
-  //     }).catchError((e) {
-  //       ScaffoldMessenger.of(context)
-  //           .showSnackBar(SnackBar(content: Text("Error:-$e")));
-  //       setState(() {
-  //         _isLoading = false;
-  //       });
-  //     });
-  //   }
-  // }
+  signIn() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+      _authServices
+          .signInWithEmail(emailAddressController.text, passwordController.text)
+          .then((credentials) {
+        try {
+          String uid = credentials.user!.uid;
+          _db.validateUser(uid).then((value) {
+            if (value["admin"]) {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.scale,
+                    alignment: Alignment.center,
+                    duration: const Duration(milliseconds: 500),
+                    child: const AdminDashScreen(),
+                  ),
+                      (route) => false);
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Admin User Logged in")));
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("User logged in.")));
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.scale,
+                    alignment: Alignment.center,
+                    duration: const Duration(milliseconds: 500),
+                    child: const DashboardScreen(),
+                  ),
+                      (route) => false);
+            }
+            setState(() {
+              _isLoading = false;
+            });
+          }).catchError((e) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text("Error :- $e")));
+            setState(() {
+              _isLoading = false;
+            });
+          });
+        } catch (e) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text("User not exists")));
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }).catchError((e) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Error:-$e")));
+        setState(() {
+          _isLoading = false;
+        });
+      });
+    }
+  }
 
 
   @override
@@ -379,10 +379,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 )
                                     : ElevatedButton(
                                   onPressed: () {
-                                    // if (widget.errMessage != null) {
-                                    //   widget.errMessage = "";
-                                    // }
-                                    // signIn();
+                                    signIn();
                                   },
                                   style: ElevatedButton.styleFrom(
                                       shape: const StadiumBorder(),
@@ -407,7 +404,28 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
-                        // Text(widget.errMessage ?? ""),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Don't have an Account?"),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                textStyle: const TextStyle(fontSize: 16),
+                              ),
+                              onPressed: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        RegistrationWidget(),
+                                  ),
+                                );
+
+                              },
+                              child: const Text('Create Account'),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),

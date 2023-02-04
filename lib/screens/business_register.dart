@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'form_components.dart';
@@ -46,6 +48,11 @@ class _RegistrationWidget extends State<RegistrationWidget> {
   void radioButtonHandler(String value) {
     b_size = value;
     print(b_size);
+  }
+
+  Future signUp() async{
+    FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailAddressController.text, password: passwordController.text);
+// add user details
   }
 
   @override
@@ -192,6 +199,36 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                                     labelText: 'Company Email Address',
                                     hintText:
                                         'Enter company email address here...'),
+                                style: textStyle(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                        const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                autofocus: true,
+                                controller: passwordController,
+                                validator: (value) {
+                                  return value != null
+                                      ? RegExp(r"^.{8,}$")
+                                      .hasMatch(value)
+                                      ? null
+                                      : "Enter at-least 6 character password"
+                                      : "Password required";
+                                },
+                                obscureText: false,
+                                decoration: inputDecoration(
+                                    labelText: 'Password',
+                                    hintText:
+                                    'Enter password here...'),
                                 style: textStyle(),
                               ),
                             ),
