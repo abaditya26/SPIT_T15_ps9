@@ -4,6 +4,7 @@ import 'package:securing_documents/admin/admin_dash_screen.dart';
 import 'package:securing_documents/firebase_options.dart';
 import 'package:securing_documents/screens/dashboard_screen.dart';
 import 'package:securing_documents/screens/login_screen.dart';
+import 'screens/business_register.dart';
 
 Future<void> main() async {
   await Firebase.initializeApp(
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(),
+      home: DashboardScreen(),
     );
   }
 }
