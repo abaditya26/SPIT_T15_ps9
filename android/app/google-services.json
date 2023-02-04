@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1033015307529",
+    "project_id": "spit-ps9",
+    "storage_bucket": "spit-ps9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033015307529:android:12e11dff4cd350370877d8",
+        "android_client_info": {
+          "package_name": "in.adityabodhankar.securing_documents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033015307529-7ag566rns80vtoj2qv3ks7d5j922vddb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYpak9D6UThyIGR5y6VTkLZibX96MgpA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033015307529-7ag566rns80vtoj2qv3ks7d5j922vddb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
