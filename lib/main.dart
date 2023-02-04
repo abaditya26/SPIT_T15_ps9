@@ -4,6 +4,7 @@ import 'package:securing_documents/admin/screens/admin_dash_screen.dart';
 import 'package:securing_documents/firebase_options.dart';
 import 'package:securing_documents/screens/dashboard_screen.dart';
 import 'package:securing_documents/screens/login_screen.dart';
+import 'package:securing_documents/screens/requestDocumentScreen.dart';
 import 'package:securing_documents/screens/splash_screen.dart';
 import 'screens/business_register.dart';
 
@@ -75,7 +76,7 @@ class _MainAppState extends State<MainApp> {
               ? DashBar()
               : user == "admin"
                   ? AdminDashScreen()
-                  : DashboardScreen(),
+                  : RequestDocumentScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

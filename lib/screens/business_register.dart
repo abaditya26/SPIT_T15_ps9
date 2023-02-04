@@ -190,37 +190,6 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                autofocus: true,
-                                controller: contactController,
-                                validator: (value) {
-                                  return value != null
-                                      ? RegExp(r"^[6-9]\d{9}$").hasMatch(value)
-                                          ? null
-                                          : "Enter valid contact"
-                                      : "Contact required";
-                                },
-                                obscureText: false,
-                                decoration: inputDecoration(
-                                    labelText: 'Contact Number',
-                                    hintText: 'Enter contact number here...'),
-                                style: textStyle(),
-                                onChanged: (value) {
-                                  phone = value;
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
 
                       Padding(
                         padding:
@@ -301,7 +270,7 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                                           : "Enter at-least 6 character password"
                                       : "Password required";
                                 },
-                                obscureText: false,
+                                obscureText: true,
                                 decoration: inputDecoration(
                                     labelText: 'Password',
                                     hintText: 'Enter password here...'),
@@ -311,65 +280,6 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                autofocus: true,
-                                controller: emailAddressController,
-                                validator: (value) {
-                                  return value != null
-                                      ? RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                              .hasMatch(value)
-                                          ? null
-                                          : "Enter valid email"
-                                      : "Email required";
-                                },
-                                obscureText: false,
-                                decoration: inputDecoration(
-                                    labelText: 'Company Email Address',
-                                    hintText:
-                                        'Enter company email address here...'),
-                                style: textStyle(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                autofocus: true,
-                                controller: passwordController,
-                                validator: (value) {
-                                  return value != null
-                                      ? RegExp(r"^.{8,}$").hasMatch(value)
-                                          ? null
-                                          : "Enter at-least 6 character password"
-                                      : "Password required";
-                                },
-                                obscureText: false,
-                                decoration: inputDecoration(
-                                    labelText: 'Password',
-                                    hintText: 'Enter password here...'),
-                                style: textStyle(),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(20, 20, 0, 10),
