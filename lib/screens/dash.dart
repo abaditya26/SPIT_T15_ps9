@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:securing_documents/screens/dashboard_screen.dart';
+import 'package:securing_documents/screens/top_nav.dart';
 import 'package:securing_documents/screens/splash_screen.dart';
 import '../admin/screens/admin_dash_screen.dart';
 import '../services/auth_services.dart';
