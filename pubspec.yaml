@@ -47,6 +47,8 @@ dependencies:
   page_transition: ^2.0.9
   image_card: ^0.0.4
   url_launcher: ^6.1.8
+  data_table_2: ^2.3.12
+  linear_progress_bar: ^1.1.0
 
 dev_dependencies:
   flutter_test:
