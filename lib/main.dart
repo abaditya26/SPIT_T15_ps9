@@ -2,35 +2,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:securing_documents/admin/admin_dash_screen.dart';
 import 'package:securing_documents/firebase_options.dart';
+import 'package:securing_documents/screens/dash.dart';
 import 'package:securing_documents/screens/dashboard_screen.dart';
 import 'package:securing_documents/screens/login_screen.dart';
 import 'package:securing_documents/screens/splash_screen.dart';
 import 'screens/business_register.dart';
-
-// Future<void> main() async {
-//   await Firebase.initializeApp(
-//     options: DefaultFirebaseOptions.currentPlatform,
-//   );
-//   runApp(const MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-//
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: DashboardScreen(),
-//     );
-//   }
-// }
-
+import 'screens/dashboard_screen.dart';
+import 'screens/dash.dart';
+import 'screens/temp.dart';
+import 'screens/new_register.dart';
 
 import 'services/auth_services.dart';
 
@@ -71,13 +51,18 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: user == "false"
-          ? LoginScreen(
-      )
-          : user == "admin"
-          ? AdminDashScreen()
-          : DashboardScreen(),
       debugShowCheckedModeBanner: false,
+      home: new_registration(),
+      // home: user == "false"
+      //     ? DashBar(
+      // )
+      //     : user == "admin"
+      //     ? AdminDashScreen()
+      //     : DashboardScreen(),
+      // debugShowCheckedModeBanner: false,
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      // ),
     );
   }
 }

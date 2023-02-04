@@ -3,7 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:securing_documents/models/user_model.dart';
+import 'package:securing_documents/screens/dash.dart';
 import 'package:securing_documents/screens/dashboard_screen.dart';
+import 'package:securing_documents/screens/login_screen.dart';
 import 'package:securing_documents/services/database_services.dart';
 import '../services/auth_services.dart';
 import 'form_components.dart';
@@ -35,7 +37,6 @@ class _RegistrationWidget extends State<RegistrationWidget> {
   final _formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String? b_size;
-  final formKey = GlobalKey<FormState>();
   String selectedType = 'Select Type';
 
   List<String> list = [
@@ -48,7 +49,6 @@ class _RegistrationWidget extends State<RegistrationWidget> {
     "Merchandise Business",
     "Non Profit Organizarion"
   ];
-
   @override
   void initState() {
     super.initState();
@@ -99,19 +99,22 @@ class _RegistrationWidget extends State<RegistrationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: const Color(0xFFFFFFFF),
-      body: SingleChildScrollView(
+    // return Scaffold(
+    //   key: scaffoldKey,
+    //   backgroundColor: const Color(0xFFFFFFFF),
+    return SingleChildScrollView(
+      child: Container(
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Business',
-                style: GoogleFonts.dancingScript(
-                    color: Colors.lightBlue, fontSize: 55.0)),
-            Text('Manager',
-                style: GoogleFonts.dancingScript(
-                    color: Colors.lightBlue, fontSize: 55.0)),
+            // Text('Business',
+            //     style: GoogleFonts.dancingScript(
+            //         color: Colors.lightBlue, fontSize: 55.0)),
+            // Text('Manager',
+            //     style: GoogleFonts.dancingScript(
+            //         color: Colors.lightBlue, fontSize: 55.0)),
             Container(
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
@@ -156,6 +159,37 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                         ),
                       ),
 
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                autofocus: true,
+                                controller: contactController,
+                                validator: (value) {
+                                  return value != null
+                                      ? RegExp(r"^[6-9]\d{9}$").hasMatch(value)
+                                          ? null
+                                          : "Enter valid contact"
+                                      : "Contact required";
+                                },
+                                obscureText: false,
+                                decoration: inputDecoration(
+                                    labelText: 'Contact Number',
+                                    hintText: 'Enter contact number here...'),
+                                style: textStyle(),
+                                onChanged: (value) {
+                                  phone = value;
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Padding(
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
@@ -277,6 +311,64 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                           ],
                         ),
                       ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                autofocus: true,
+                                controller: emailAddressController,
+                                validator: (value) {
+                                  return value != null
+                                      ? RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                              .hasMatch(value)
+                                          ? null
+                                          : "Enter valid email"
+                                      : "Email required";
+                                },
+                                obscureText: false,
+                                decoration: inputDecoration(
+                                    labelText: 'Company Email Address',
+                                    hintText:
+                                        'Enter company email address here...'),
+                                style: textStyle(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                autofocus: true,
+                                controller: passwordController,
+                                validator: (value) {
+                                  return value != null
+                                      ? RegExp(r"^.{8,}$").hasMatch(value)
+                                          ? null
+                                          : "Enter at-least 6 character password"
+                                      : "Password required";
+                                },
+                                obscureText: false,
+                                decoration: inputDecoration(
+                                    labelText: 'Password',
+                                    hintText: 'Enter password here...'),
+                                style: textStyle(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
 
                       Padding(
                         padding:
@@ -309,7 +401,7 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                                     borderSide: const BorderSide(
                                         width: 3, color: Color(0xFFF1F4F8)),
                                   ),
-                                  prefixIcon: const Icon(Icons.wc_rounded),
+                                  prefixIcon: const Icon(Icons.business_sharp),
                                 ),
                                 validator: (value) {
                                   if (selectedType == 'Select Type')
@@ -341,7 +433,11 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                           children: [
                             TextButton(
                               onPressed: () async {
-                                Navigator.pop(context);
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DashBar()),
+                                    (route) => false);
                               },
                               style: TextButton.styleFrom(
                                 textStyle: GoogleFonts.lexend(
