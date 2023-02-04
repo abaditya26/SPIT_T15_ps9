@@ -36,6 +36,18 @@ class _RegistrationWidget extends State<RegistrationWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String? b_size;
   final formKey = GlobalKey<FormState>();
+  String selectedType = 'Select Type';
+
+  List<String> list = [
+    "Select Type",
+    "Micro Scale Business",
+    "Small Scale Business",
+    "Medium Scale Business",
+    "Large Scale Business",
+    "Family Business",
+    "Merchandise Business",
+    "Non Profit Organizarion"
+  ];
 
   @override
   void initState() {
@@ -51,18 +63,13 @@ class _RegistrationWidget extends State<RegistrationWidget> {
     super.dispose();
   }
 
-  void radioButtonHandler(String value) {
-    b_size = value;
-    print(b_size);
-  }
-
   Future signUp() async {
     setState(() {
       _isLoading = true;
     });
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailAddressController.text, password: passwordController.text);
-  // add user details
+    // add user details
     addUser();
   }
 
@@ -70,7 +77,7 @@ class _RegistrationWidget extends State<RegistrationWidget> {
     final userModel = UserModel(
       uid: _auth.getUid(),
       email: emailAddressController.text,
-      type: b_size.toString(),
+      type: selectedType,
       name: nameController.text,
       contactNo: contactController.text,
       address: addressController.text,
@@ -81,10 +88,10 @@ class _RegistrationWidget extends State<RegistrationWidget> {
       });
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text("SignUp Successful")));
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const DashboardScreen()),
-      );
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const DashboardScreen()),
+          (route) => false);
     }).catchError((e) {
       print(e);
     });
@@ -293,8 +300,35 @@ class _RegistrationWidget extends State<RegistrationWidget> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            DropdownButtonExample(),
+                          children: [
+                            Expanded(
+                              child: DropdownButtonFormField<String>(
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(
+                                        width: 3, color: Color(0xFFF1F4F8)),
+                                  ),
+                                  prefixIcon: const Icon(Icons.wc_rounded),
+                                ),
+                                validator: (value) {
+                                  if (selectedType == 'Select Type')
+                                    return 'Select your Company Type';
+                                  return null;
+                                },
+                                value: selectedType,
+                                items: list
+                                    .map((item) => DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Text(item,
+                                              style: const TextStyle(
+                                                  fontSize: 14)),
+                                        ))
+                                    .toList(),
+                                onChanged: (item) => setState(
+                                    () => selectedType = item ?? list[0]),
+                              ),
+                            ),
                           ],
                         ),
                       ),
