@@ -131,51 +131,31 @@ class _DashBarState extends State<DashBar> {
                         ))
                   ]),
                 ),
+
                 Container(
                   padding: EdgeInsets.all(20),
                   margin: EdgeInsets.all(20),
                   child: GNav(
-                      rippleColor: Colors
-                          .black45, // tab button ripple color when pressed
+                      rippleColor: Colors.black45, // tab button ripple color when pressed
                       haptic: true, // haptic feedback
-                      tabBorderRadius: 15,
-                      tabActiveBorder: Border.all(
-                          color: Colors.grey, width: 1), // tab button border
                       curve: Curves.easeOutExpo, // tab animation curves
                       duration:
-                          Duration(milliseconds: 200), // tab animation duration
+                      Duration(milliseconds: 200),
                       gap: 8, // the tab button gap between icon and text
                       color: Colors.grey[800], // unselected icon color
                       activeColor: Colors
-                          .lightBlueAccent, // selected icon and text color
+                          .black, // selected icon and text color
                       iconSize: 35, // tab button icon size
-                      tabBackgroundColor: Colors.lightBlueAccent
+                      tabBackgroundColor: Colors.grey
                           .withOpacity(0.1), // selected tab background color
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20,
                           vertical: 5), // navigation bar padding
                       tabs: const [
+
                         GButton(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          icon: LineIcons.home,
-                          text: 'Home',
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                        ),
-                        GButton(
-                          icon: LineIcons.heart,
-                          text: 'Likes',
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                        ),
-                        GButton(
-                          icon: LineIcons.search,
-                          text: 'Search',
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                        ),
-                        GButton(
-                          icon: LineIcons.user,
-                          text: 'Profile',
-                          style: GnavStyle.oldSchool,
-                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          icon: Icons.arrow_right,
+                          text: 'Register',
                         )
                       ]),
                 ),
