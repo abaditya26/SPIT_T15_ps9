@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:securing_documents/admin/admin_dash_screen.dart';
+import 'package:securing_documents/admin/screens/admin_dash_screen.dart';
 import 'package:securing_documents/firebase_options.dart';
-import 'package:securing_documents/screens/dash.dart';
 import 'package:securing_documents/screens/dashboard_screen.dart';
 import 'package:securing_documents/screens/login_screen.dart';
 import 'package:securing_documents/screens/splash_screen.dart';
 import 'screens/business_register.dart';
+
 import 'screens/dashboard_screen.dart';
 import 'screens/dash.dart';
 import 'screens/temp.dart';
@@ -51,18 +51,12 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: user == "false"
+          ? DashBar()
+          : user == "admin"
+              ? AdminDashScreen()
+              : DashboardScreen(),
       debugShowCheckedModeBanner: false,
-      home: new_registration(),
-      // home: user == "false"
-      //     ? DashBar(
-      // )
-      //     : user == "admin"
-      //     ? AdminDashScreen()
-      //     : DashboardScreen(),
-      // debugShowCheckedModeBanner: false,
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      // ),
     );
   }
 }

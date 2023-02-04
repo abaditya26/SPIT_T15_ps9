@@ -1,3 +1,4 @@
+import 'package:securing_documents/screens/dash.dart';
 import 'package:securing_documents/screens/login_screen.dart';
 import 'package:securing_documents/services/database_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,18 +45,12 @@ class AuthServices {
       if (_auth.currentUser != null) {
         Map<String, dynamic> isAdmin =
             await _db.validateUser(_auth.currentUser!.uid);
-        if (isAdmin["active"]) {
+        print(isAdmin);
           if (isAdmin["admin"]) {
             return {"role": "admin", "message": ""};
           } else {
             return {"role": "user", "message": ""};
           }
-        } else {
-          return {
-            "role": "false",
-            "message": "User is deactivated. Please contact Admin."
-          };
-        }
       } else {
         return {"role": "false", "message": "User Data Unavailable"};
       }
@@ -67,12 +62,12 @@ class AuthServices {
     }
   }
 
-  signOutUser(BuildContext context, String? str) async {
+  signOutUser(BuildContext context) async {
     _auth.signOut().then((value) {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-              builder: (context) => const LoginScreen()),
+              builder: (context) => DashBar()),
           (route) => false);
     }).catchError((e) {
       ScaffoldMessenger.of(context).showSnackBar(

@@ -10,6 +10,7 @@ class DatabaseServices {
   }
 
   Future<Map<String, dynamic>> validateUser(String uid) async {
+
     DocumentSnapshot documentSnapshot =
         await _db.collection("users").doc(uid).get();
     if (documentSnapshot.exists) {
@@ -31,7 +32,6 @@ class DatabaseServices {
         "admin": false,
       };
     }
-    return {};
   }
 
   Future<UserModel> getUserData() async {

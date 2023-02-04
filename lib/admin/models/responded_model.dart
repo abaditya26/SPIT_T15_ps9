@@ -1,0 +1,3 @@
+class RespondedModel{
+  String? id;
+}
