@@ -54,7 +54,7 @@ class StorageServices {
     //select document
     try {
 
-      final XFile? file = await _picker.pickImage(source: ImageSource.gallery).timeout(Duration(seconds: 2));
+      final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
 
       assert(file!=null);
       //upload document

@@ -53,7 +53,7 @@ class _AdminDashScreenState extends State<AdminDashScreen> {
                             Expanded(
                               child: Card(
                                 child: Container(
-                                  margin: EdgeInsets.all(10.0),
+                                  margin: const EdgeInsets.all(10.0),
                                   height: 300.0,
                                   child: Column(
                                     children: [
@@ -67,9 +67,9 @@ class _AdminDashScreenState extends State<AdminDashScreen> {
                             Expanded(
                               child: Card(
                                 child: Container(
-                                  margin: EdgeInsets.all(10.0),
+                                  margin: const EdgeInsets.all(10.0),
                                   height: 250.0,
-                                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
                                   child: Column(
                                     children: [
                                       const Text("Stats", style: TextStyle(fontSize: 22.0),),
@@ -112,8 +112,8 @@ class _AdminDashScreenState extends State<AdminDashScreen> {
                           ],
                         ),
                         Container(
-                          margin: EdgeInsets.all(16.0),
-                          child: Text(
+                          margin: const EdgeInsets.all(16.0),
+                          child: const Text(
                             "Recent Requests",
                             style: TextStyle(fontSize: 22.0),
                           ),
