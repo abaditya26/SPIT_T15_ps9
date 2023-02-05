@@ -1,0 +1,9 @@
+.cache
+dist/Chatroom.css
+dist/Chatroom.js
+dist/Chatroom.css.map
+dist/Chatroom.js.map
+node_modules
+yarn-error.log
+__pycache__
+.vscode

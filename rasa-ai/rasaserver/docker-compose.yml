@@ -1,0 +1,11 @@
+version: '2'
+services:
+  rasa-server:
+    image: rasa/rasa:3.3.0-full
+    user: root
+    container_name: hindibotserver
+    volumes:
+      - ./:/app
+    ports:
+      - 5005:5005
+    command: run -m models --enable-api --cors "*"

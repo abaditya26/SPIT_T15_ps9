@@ -1,0 +1,70 @@
+version: '3.1'
+
+intents:
+  - greet
+  - docs
+  - funct
+  - apply_for_license
+  - documents_req
+  - charges_req
+  - renew_license
+  - time_req
+  - bye
+  - garbage
+  - more_assistance
+
+entities:
+   - typeofbusiness
+   - functionality
+
+slots:
+
+  typeofbusiness:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+
+  functionality:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+
+
+responses:
+   utter_greet:
+       - text: "Hey, I am an AI Assistant, I'm here to help you and answer your queries?"
+       - text: "Hi there, how can I help you today?"
+       - text: "Hello, what can I assist you with?"
+       - text: "Good morning/afternoon/evening, what's on your mind?"
+       - text: "Hey, what would you like to talk about?"
+       - text: "Is there anything I can assist you with?"
+
+   utter_apply_for_license:
+       - text: "Which type of business license you are looking for?"
+       - text: "For registration for new license, you will be needed to provide the type of license you want to apply license for."
+
+   utter_renew_license:
+       - text: "To renew license, please [click here](https://aaplesarkar.mahaonline.gov.in/)"
+
+   utter_bye:
+       - text: "Thank you for contacting, have a great day ahead"
+
+   utter_garbage:
+       - text: "I am sorry, I cannot help you regarding this. For more details please call us on '9876543210' or [click here](https://lms.mahaonline.gov.in/)"
+
+   utter_more_assistance:
+       - text: "Is there anything else in which I can help you with?"
+
+actions:
+  - action_get_type
+  - action_put_info
+  - action_put_charges
+  - action_put_time
+  - action_put_docs
+  - action_put_funct
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
