@@ -42,13 +42,13 @@ class _RegistrationWidget extends State<RegistrationWidget> {
 
   List<String> list = [
     "Select Type",
-    "Micro Scale Business",
-    "Small Scale Business",
-    "Medium Scale Business",
-    "Large Scale Business",
-    "Family Business",
+    "GST Registration",
+    "FSSAI Registration",
+    "Shop and Establishment License",
+    "Factory License",
+    "MSME Registration",
     "Merchandise Business",
-    "Non Profit Organizarion"
+    "Non Profit Organization"
   ];
   @override
   void initState() {
