@@ -22,6 +22,7 @@ class AdminRequestModel {
   int? documentCharge;
   int? documentTimeRequired;
   String? documentDescription;
+  Timestamp? timestamp;
 
   AdminRequestModel(
       {this.id,
@@ -39,7 +40,8 @@ class AdminRequestModel {
       this.documentDescription,
       this.documentId,
       this.documentName,
-      this.documentTimeRequired});
+      this.documentTimeRequired,
+      this.timestamp});
 
   // AdminRequestModel.fromMap(Map<String, dynamic> map) {
   //   id = map.containsKey("id") ? map["id"] : null;
@@ -70,6 +72,7 @@ class AdminRequestModel {
     documentDescription = snap.get("documentDescription");
     documentCharge = snap.get("documentCharge");
     documentTimeRequired = snap.get("documentTimeRequired");
+    timestamp= snap.get("timestamp");
 
   }
 

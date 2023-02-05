@@ -1,11 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:securing_documents/models/user_document_model.dart';
 import 'package:securing_documents/models/user_model.dart';
 import 'package:securing_documents/services/auth_services.dart';
 
+import '../admin/models/request_model.dart';
+
 class DatabaseServices {
   final _db = FirebaseFirestore.instance;
+  final _auth = FirebaseAuth.instance;
+
 
   Future<void> addUserData(UserModel user) {
     return _db.collection("users").doc(user.uid).set(user.toMap());
@@ -49,6 +54,27 @@ class DatabaseServices {
     );
   }
 
+  Future<List<AdminRequestModel>> getRequests() async {
+    List<AdminRequestModel> requests = [];
+    try {
+      String uid = _auth.currentUser!.uid;
+      print(uid);
+      QuerySnapshot requestsSnapshot = await _db
+          .collection("requests")
+          .where("uid", isEqualTo: uid)
+          .get();
+      for (QueryDocumentSnapshot requestSnapshot in requestsSnapshot.docs) {
+        try {
+          requests.add(AdminRequestModel.fromSnapshot(requestSnapshot));
+        } catch (e) {
+          print(e);
+        }
+      }
+    } catch (e1) {}
+    return requests;
+  }
+
+
   Future<void> updateUserData(UserModel user) async {
     return _db.collection("users").doc(user.uid).update(user.toMap());
   }
@@ -72,7 +98,7 @@ class DatabaseServices {
 
     // Get the latest reference ID from Firestore
     QuerySnapshot snapshot = await _db
-        .collection('documents')
+        .collection('requests')
         .orderBy('requestId', descending: true)
         .limit(1)
         .get();

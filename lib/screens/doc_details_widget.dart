@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:securing_documents/models/documentStatus_model.dart';
-
+import '../admin/models/request_model.dart';
 import '../services/auth_services.dart';
 import '../services/database_services.dart';
 
@@ -12,37 +13,38 @@ class CertificateStatus extends StatefulWidget {
 }
 
 class _CertificateStatusState extends State<CertificateStatus> {
+  late AdminRequestModel document;
+  List<AdminRequestModel> services = [];
+  bool _isVisible = false;
   final _auth = AuthServices();
   final _db = DatabaseServices();
+  bool isLoading = true;
 
-  final List<Service> services = [
-    Service(
-      id: '123456',
-      name: 'John Doe',
-      serviceName: 'Service A',
-      currentStatus: 'Pending',
-      maxDays: '15',
-      expectedDate: '10/10/2022',
-      status: 'Rejected', uid: '',
-    ),
-    Service(
-        id: '123456',
-        name: 'Jane Doe',
-        serviceName: 'Service B',
-        currentStatus: 'Approved',
-        maxDays: '10',
-        expectedDate: '07/05/2011',
-        status: 'Not Rejected',
-        uid: ''),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _db.getRequests().then((requests) {
+      this.services = requests;
+      isLoading = false;
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Column(
         children: [
-          const Text(
-            'Your Transaction History',
-            style: TextStyle(fontSize: 26),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Your Transaction History',
+              style: GoogleFonts.urbanist(
+                color: const Color(0xFF14181B),
+                fontWeight: FontWeight.w600,
+                fontSize: 26,
+              ),
+            ),
           ),
           Card(
             child: SingleChildScrollView(
@@ -80,30 +82,28 @@ class _CertificateStatusState extends State<CertificateStatus> {
                     tooltip: 'Expected days for issuing certificate',
                   ),
                   DataColumn(
-                    label: Text('Application Status'),
+                    label: Text('View Certificate'),
                     numeric: false,
-                    tooltip: 'Status of the service',
-                  ),
-                  DataColumn(
-                    label: Text('Download Certificate'),
-                    numeric: false,
-                    tooltip: 'Download certificate of the service',
+                    tooltip: 'View certificate of the service',
                   ),
                 ],
                 rows: services
                     .map((service) => DataRow(
                           cells: [
-                            DataCell(Text(service.id)),
-                            DataCell(Text(service.name)),
-                            DataCell(Text(service.serviceName)),
-                            DataCell(Text(service.currentStatus)),
-                            DataCell(Text(service.maxDays.toString())),
-                            DataCell(Text(service.expectedDate.toString())),
-                            DataCell(Text(service.status)),
+                            DataCell(Text(service.documentId ?? "")),
+                            DataCell(Text(service.businessName ?? "")),
+                            DataCell(Text(service.documentName ?? "")),
+                            DataCell(Text(service.status ?? "")),
+                            DataCell(
+                                Text(service.documentTimeRequired.toString())),
+                            DataCell(Text(
+                                "${DateTime.fromMillisecondsSinceEpoch(service.timestamp!.millisecondsSinceEpoch).add(Duration(days: service.documentTimeRequired ?? 2))}")),
                             DataCell(
                               ElevatedButton(
-                                child: const Text('Download'),
-                                onPressed: () {},
+                                child: const Text('View Status'),
+                                onPressed: () {
+
+                                },
                               ),
                             ),
                           ],

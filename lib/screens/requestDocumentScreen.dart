@@ -46,7 +46,8 @@ class _RequestDocumentScreenState extends State<RequestDocumentScreen> {
   Widget build(BuildContext context) {
     final isDesktop = MediaQuery.of(context).size.width >= 1200;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: Colors.black  ,
+      ),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(),

@@ -1,13 +1,11 @@
-// import 'package:cafe_hob_menu/services/auth_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../services/auth_services.dart';
+import 'user_dash.dart';
 
 class AdminDrawer extends StatelessWidget {
-  //final bool web;
-  //final void Function(int, bool, bool) changeScreen;
-  // final _auth = AuthServices();
 
   const AdminDrawer({super.key, });
 
@@ -23,9 +21,13 @@ class AdminDrawer extends StatelessWidget {
                   decoration: const BoxDecoration(
                     color: Color(0x06000000),
                   ),
-                  accountName: const Text(
+                  accountName:  Text(
                     "Welcome User",
-                    style: TextStyle(color: Colors.black),
+                      style: GoogleFonts.urbanist(
+                        color:  const Color(0xFF14181B),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
                   ),
                   // accountEmail: Text(
                   //   _auth.getEmail(),
@@ -60,11 +62,20 @@ class AdminDrawer extends StatelessWidget {
                         // fit: BoxFit.cover,
                       ),
                     ),
-                  ), accountEmail: Text("asd"),
+                  ), accountEmail: Text("user@gmail.com",style: GoogleFonts.urbanist(
+        color:  const Color(0xFF14181B),
+          fontWeight: FontWeight.w600,
+          fontSize: 16,
+        ),),
                 ),
                 ListTile(
                   onTap: () {
-                    //changeScreen(0, web, false);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                          const user_dash()),
+                    );
                   },
                   title: const Text("Dashboard"),
                   leading: const Icon(Icons.dashboard_outlined),
@@ -83,12 +94,6 @@ class AdminDrawer extends StatelessWidget {
                   title: const Text("Documents"),
                   leading: const Icon(Icons.list_alt_outlined),
                 ),
-                // const Spacer(),
-                // ListTile(
-                //   onTap: () {},
-                //   title: Text("Logout"),
-                //   leading: Icon(CupertinoIcons.square_arrow_right),
-                // ),
               ],
             ),
           ),

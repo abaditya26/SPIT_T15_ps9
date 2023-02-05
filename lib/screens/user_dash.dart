@@ -38,17 +38,20 @@ class _user_dashState extends State<user_dash> {
                           width: 30,
                         ),
                         InkWell(
-                          onTap:  (){Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                const CheckTransScreen()),
-                          );},
+                          onTap: () {
+                            //   Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) =>
+                            //       const CheckTransScreen()),
+                            // );
+                          },
                           child: const TransparentImageCard(
                             width: 250,
-                            imageProvider: AssetImage('assets/images/12345.png'),
+                            imageProvider:
+                                AssetImage('assets/images/12345.png'),
                             title: Text(
-                              'tmep',
+                              'Documents',
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -57,17 +60,18 @@ class _user_dashState extends State<user_dash> {
                           width: 30,
                         ),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                  const RequestDocumentScreen()),
+                                      const RequestDocumentScreen()),
                             );
                           },
                           child: const TransparentImageCard(
                             width: 250,
-                            imageProvider: AssetImage('assets/images/12345.png'),
+                            imageProvider:
+                                AssetImage('assets/images/12345.png'),
                             title: Text(
                               'Request Certification',
                               style: TextStyle(color: Colors.white),

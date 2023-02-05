@@ -8,10 +8,11 @@ class DocumentRequirementModel {
 
   DocumentRequirementModel(
       {required this.id,
-        required this.title,
-        this.downloadUrl = '',
-        this.url = '', this.uploading = false, this.fileName = ''});
-
+      required this.title,
+      this.downloadUrl = '',
+      this.url = '',
+      this.uploading = false,
+      this.fileName = ''});
 
   Map<String, dynamic> toMap() {
     return {
@@ -36,9 +37,9 @@ class DocumentModel {
 
   DocumentModel(
       {required this.id,
-        required this.name,
-        required this.requiredDocuments,
-        required this.charge,
-        required this.timeRequired,
-        required this.description});
+      required this.name,
+      required this.requiredDocuments,
+      required this.charge,
+      required this.timeRequired,
+      required this.description});
 }

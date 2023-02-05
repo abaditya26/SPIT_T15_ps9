@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -16,7 +17,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children:  [
-                Text("Dashboard",),
+                 Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text("Dashboard",style: GoogleFonts.urbanist(
+                    color:  const Color(0xFF14181B),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                  ),),
+                ),
                 Row(
                   children: [
                     IconButton(onPressed: (){}, icon: const Icon(Icons.settings), iconSize: 30,),
