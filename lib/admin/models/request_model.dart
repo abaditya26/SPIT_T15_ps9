@@ -37,6 +37,7 @@ class AdminRequestModel {
       this.requiredLevels,
       this.respondedList,
       this.documentCharge,
+      this.businessType,
       this.documentDescription,
       this.documentId,
       this.documentName,
