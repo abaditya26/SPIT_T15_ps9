@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="./Chatroom.css">
+    <link rel="stylesheet" type="text/css" href="./index.css">
+
+    <title>VoiceChatBot Demo</title>
+
+  </head>
+  <body>
+  <h1>SAMPLE WEBSITE PAGE...</h1>
+  <div class="chat-container"></div>
+    <script src="./Chatroom.js"></script>
+    <script type="text/javascript">
+      window.chatroom = new window.Chatroom({
+        title: "Voice Chat Assistance",
+        container: document.querySelector(".chat-container"),
+        welcomeMessage: "Hello!",
+        host: "http://localhost:5005",
+        speechRecognition: "en",
+        voiceLang: "en-US"
+      });
+      window.chatroom.openChat();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,263 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hello
+    - Greetings
+    - Hey!
+    - Greetings
+    - good day
+    - Good Morning
+    - Hi there
+    - Hey there
+    - Hello!
+    - Good evening
+    - Hiya
+    - Good afternoon
+    - Howdy
+    - Sup
+    - Morning!
+    - Bonjour
+    - Aloha
+    - Hola
+    - Salutations
+    - Yo!
+
+- intent: apply_for_license
+  examples: |
+    - I need information about business licenses
+    - Can you tell me about business licenses
+    - I want to know about business licenses
+    - process for applying for license?
+    - I want to apply for new license
+    - How do I go about obtaining a business license?
+    - Can you explain the business license application process?
+    - What is the procedure for getting a new business license?
+    - Is there any specific information I need to know about business licenses?
+    - Can you walk me through the process of getting a business license?
+
+- intent: documents_req
+  examples: |
+    - What documents will be required
+    - What documents to submit
+    - What documents to submit
+    - Which documents to submit
+    - What documents are needed?
+    - Can you tell me the required documents?
+    - What are the document requirements for license registration?
+    - What documents are mandatory for submission?
+    - Can you list the necessary documents?
+    - Can you provide information on the required documents for license application?
+    - Which papers should be submitted to obtain the license?
+    - What are the necessary papers for license registration?
+    - Can you give details about the documents required for license process?
+    - Is there any specific documentation required for license approval?
+    - Can you inform me about the essential documents for license registration?
+
+- intent: time_req
+  examples: |
+    - How much time will it require
+    - what time will it take
+    - How long will it take?
+    - Can you give me an estimate on the time needed?
+    - Is there a specific timeframe for this task?
+    - How much time do I need to allocate for this task?
+    - Could you give me a rough idea on the duration?
+    - How many hours are expected for this task to be completed?
+    - What is the expected time for completion?
+    - Could you tell me the estimated time for this task?
+    - Can you give me a timeframe for this task?
+    - How much time is required for this task to be completed?
+    - How long does it take to get a license approved?
+    - How much time is needed for license approval?
+    - Approval time for license, how much?
+    - What's the estimated time for license approval?
+    - When can I expect my license to be approved?
+    - How many days does it take to get a license approved?
+    - Is there a specific time frame for license approval?
+    - How soon can I expect my license to be approved?
+    - Can you give an estimated time for license approval?
+    - What's the typical time for license approval?
+
+- intent: charges_req
+  examples: |
+    - How much fee has to be deposited for license
+    - How much is the license registration fee?
+    - What are the charges for license registration?
+    - What is the fee?
+    - How much money is needed to get a new license?
+    - How much do I have to pay for a license?
+    - What is the cost of getting a new license?
+    - Can you tell me the fee for license registration?
+    - What's the fee for obtaining a license?
+    - Can you give me the cost of obtaining a license?
+    - Can you tell me the charge for a new license?
+    - What's the cost of getting a license?
+    - How much should I pay for a new license?
+    - What's the price for a license registration?
+    - Can you give me the fee for obtaining a license?
+
+- intent: renew_license
+  examples: |
+    - Renew my business license
+    - Re-register my business license
+    - Apply for a renewed business license
+    - Request for renewal of my business license
+    - Get my business license renewed
+    - Renewal of my business license required
+    - I need to renew
+    - Seeking renewal
+    - I'm looking to renew 
+
+- intent: bye
+  examples: |
+    - No, nothing else. Thank you
+    - Thanks for the help
+    - Thanks for the help.
+    - Bye.
+    - got it. Thank you.
+    - Thank you.
+    - No more help is required.
+    - Thanks, that's all I needed
+    - That's it for now. Thanks
+    - I appreciate your help. Bye.
+    - I understand. Thanks a lot
+    - Perfect. Thank you so much.
+    - No further assistance needed. Bye.
+    - Okay, got it. Thank you very much.
+    - Thanks a lot. Have a great day.
+    - Thanks for everything. Bye for now.
+    - Thanks for your help. Take care.
+
+- intent: garbage
+  examples: |
+    - Who is the President of the US
+    - I want an apple
+    - I want to order food
+    - What is 2 + 2?
+    - Who is the US President?
+    - qawsedrftgyhuj
+    - lmknjbhvg234
+    - bot or human
+    - What is the capital city of France?
+    - Can you suggest a good movie to watch tonight?
+    - I need a taxi to the airport
+    - What is the weather like in Los Angeles today?
+    - Who won the World Cup in 2022?
+    - What is the meaning of life?
+    - Who is the best chef in the world?
+    - What are some healthy breakfast options?
+
+- intent: docs
+  examples: |
+    - I want to know about the [docs]{"entity": "typeofbusiness"}
+    - [Documentation]{"entity": "typeofbusiness"}
+    - details about the [blogs]{"entity": "typeofbusiness"}
+    - information [documentation]{"entity": "typeofbusiness"}
+
+- intent: funct
+  examples: |
+    - [More  functionalities]{"entity": "functionality"}
+    - [More Functionalities]{"entity": "functionality"}
+    - [more details]{"entity": "functionality"} about the licence
+    - [more information]{"entity": "functionality"} about this
+    
+
+#############################################
+#############################################
+#############################################
+#############################################
+
+stories:
+- story: greet and applyforlicense
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: apply_for_license
+    - action: action_get_type
+
+
+- story: docs
+  steps:
+    - intent: docs
+      entities:
+        - typeofbusiness: "nonprofit"
+    - action: action_put_info
+
+- story: funct
+  steps:
+    - intent: funct
+      entities:
+        - functionality: "Fees Required"
+    - action: action_put_funct
+
+- story: apply_for_license
+  steps:
+    - action: action_get_type
+
+
+- story: greet and document_req
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: documents_req
+    - action: action_get_type
+
+
+- story: greet and chargesreq
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: charges_req
+    - action: action_get_type
+
+
+- story: greet and timereq
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: time_req
+    - action: action_get_type
+
+#- story: test1
+#  steps:
+#    -
+- story: hierarchy
+  steps:
+    - intent: apply_for_license
+    - action: action_get_type
+    - intent: documents_req
+    - intent: charges_req
+    - intent: time_req
+    - action: action_put_time
+    - action: action_put_charges
+    - action: action_put_docs
+
+- story: greet and renew_license
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: renew_license
+  - action: utter_renew_license
+  - action: utter_more_assistance
+
+- story: greet and bye
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: bye
+  - action: utter_bye
+
+- story: greet and garbage
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: garbage
+  - action: utter_garbage
+
+rules:
+- rule: garbage
+  steps:
+  - intent: garbage
+  - action: utter_garbage
