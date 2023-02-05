@@ -1,6 +1,5 @@
-# securing_documents
+# securing_documents with BizBoost
 
-A new Flutter project.
 
 ## Getting Started
 
@@ -16,8 +15,12 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 
+<p align="center">
+<img src="https://user-images.githubusercontent.com/69450294/206444726-c47e42b6-c123-4994-8244-ea7006c6852a.jpg" data-canonical-src="https://user-images.githubusercontent.com/69450294/206444726-c47e42b6-c123-4994-8244-ea7006c6852a.jpg" width="200" height="400" />
+</p>
 
-Project Demo Link - https://tomtom-maps-c6197.web.app/#/
+
+Project Demo Link - https://spit-ps9.web.app/
 
 
 To Run The Project -
@@ -40,6 +43,8 @@ To Run The Project -
 6. Now you have to select device on which you have to run this app. For eg: edge, chrome, android device, etc.
 
 7. You are all set Now. Run the app by simply click on the run button.
+
+8. Added RASA AI bot which helps in navigating the website. We've added the code in folder named RASA_AI.
 
 8. Login details - 
 
