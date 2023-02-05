@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:securing_documents/admin/models/request_model.dart';
+import 'package:securing_documents/admin/screens/admin_view_request.dart';
 import 'package:securing_documents/admin/services/admin_database_services.dart';
 import 'package:securing_documents/admin/widgets/common_widgets.dart';
 
@@ -53,7 +54,6 @@ class _AdminRequestsScreenState extends State<AdminRequestsScreen> {
                         ),
                         DataTable(
                           columns: const [
-                            DataColumn(label: Text("#")),
                             DataColumn(label: Text("Request ID")),
                             DataColumn(label: Text("User Name")),
                             DataColumn(label: Text("Document Type")),
@@ -64,10 +64,7 @@ class _AdminRequestsScreenState extends State<AdminRequestsScreen> {
                               .map(((AdminRequestModel request) => DataRow(
                                     cells: [
                                       DataCell(
-                                        Text(request.id ?? ""),
-                                      ),
-                                      DataCell(
-                                        Text(request.requestId ?? ""),
+                                        Text("${request.requestId}"),
                                       ),
                                       DataCell(
                                         Text(request.businessName ?? ""),
@@ -81,7 +78,15 @@ class _AdminRequestsScreenState extends State<AdminRequestsScreen> {
                                       DataCell(Row(
                                         children: [
                                           ElevatedButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            AdminViewRequest(
+                                                                requestData:
+                                                                    request)));
+                                              },
                                               child: const Text("View")),
                                           const SizedBox(
                                             width: 10.0,
