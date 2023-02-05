@@ -6,6 +6,7 @@ import 'package:securing_documents/models/user_model.dart';
 import 'package:securing_documents/screens/landing_screen.dart';
 import 'package:securing_documents/screens/top_nav.dart';
 import 'package:securing_documents/screens/login_screen.dart';
+import 'package:securing_documents/screens/user_dash.dart';
 import 'package:securing_documents/services/database_services.dart';
 import '../services/auth_services.dart';
 import 'form_components.dart';
@@ -90,7 +91,7 @@ class _RegistrationWidget extends State<RegistrationWidget> {
           .showSnackBar(const SnackBar(content: Text("SignUp Successful")));
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const DashboardScreen()),
+          MaterialPageRoute(builder: (context) => const user_dash()),
           (route) => false);
     }).catchError((e) {
       print(e);

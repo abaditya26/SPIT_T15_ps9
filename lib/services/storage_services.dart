@@ -38,6 +38,7 @@
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:securing_documents/models/user_document_model.dart';
@@ -51,41 +52,51 @@ class StorageServices {
   uploadDocument(DocumentRequirementModel document, BuildContext context,
       Function(DocumentRequirementModel document) uploadImage) async {
     //select document
-    final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
+    try {
 
-    //upload document
-    Uint8List imageData = await XFile(file!.path).readAsBytes();
-    document.fileName = file.name;
-    UploadTask uploadTask = storageRef
-        .ref("documents/$uid/${document.title}_${file.name}")
-        .putData(imageData);
-    uploadTask.snapshotEvents.listen((event) async {
-      switch (event.state) {
-        case TaskState.running:
-          // updateProgress(progress);
-          break;
-        case TaskState.paused:
-          break;
-        case TaskState.canceled:
-          break;
-        case TaskState.error:
-          break;
-        case TaskState.success:
-          //Document uploaded to firestore
-          document.url = await storageRef
-              .ref("documents/$uid/${document.title}_${file.name}")
-              .getDownloadURL();
-          print(document.fileName);
-          uploadImage(document);
-          break;
-      }
-    });
+      final XFile? file = await _picker.pickImage(source: ImageSource.gallery).timeout(Duration(seconds: 2));
+
+      assert(file!=null);
+      //upload document
+      Uint8List imageData = await XFile(file!.path).readAsBytes();
+      document.fileName = file.name;
+      UploadTask uploadTask = storageRef
+          .ref("documents/$uid/${document.title}_${file.name}")
+          .putData(imageData);
+      uploadTask.snapshotEvents.listen((event) async {
+        switch (event.state) {
+          case TaskState.running:
+            // updateProgress(progress);
+            break;
+          case TaskState.paused:
+            break;
+          case TaskState.canceled:
+            break;
+          case TaskState.error:
+            break;
+          case TaskState.success:
+            //Document uploaded to firestore
+            document.url = await storageRef
+                .ref("documents/$uid/${document.title}_${file.name}")
+                .getDownloadURL();
+            print(document.fileName);
+            uploadImage(document);
+            break;
+        }
+      });
+    } catch (e) {
+      print("inasasd");
+      uploadImage(document);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text("Image fetch failed")));
+    }
   }
 
   Future<void> removeImage(DocumentRequirementModel document) async {
     try {
-      await storageRef.ref(
-          "documents/$uid/${document.title}_${document.fileName}").delete();
-    }catch(e){}
+      await storageRef
+          .ref("documents/$uid/${document.title}_${document.fileName}")
+          .delete();
+    } catch (e) {}
   }
 }

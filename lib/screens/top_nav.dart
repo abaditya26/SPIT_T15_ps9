@@ -19,7 +19,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children:  [
                  Padding(
                   padding: const EdgeInsets.only(left: 10),
-                  child: Text("Dashboard",style: GoogleFonts.urbanist(
+                  child: Text("Dashboardasd",style: GoogleFonts.urbanist(
                     color:  const Color(0xFF14181B),
                     fontWeight: FontWeight.w600,
                     fontSize: 16,

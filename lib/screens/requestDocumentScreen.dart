@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:securing_documents/models/reg_documents_model.dart';
 import 'package:securing_documents/models/user_document_model.dart';
 import 'package:securing_documents/models/user_model.dart';
+import 'package:securing_documents/screens/side_nav.dart';
 import 'package:securing_documents/services/common_data.dart';
 import 'package:securing_documents/services/database_services.dart';
 import 'package:securing_documents/services/storage_services.dart';
@@ -46,127 +47,129 @@ class _RequestDocumentScreenState extends State<RequestDocumentScreen> {
   Widget build(BuildContext context) {
     final isDesktop = MediaQuery.of(context).size.width >= 1200;
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.black  ,
-      ),
-      body: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 300.0,
-                  child: const Drawer(
-                    elevation: 0,
-                  ),
-                ),
-                SizedBox(
-                  width:
-                      isDesktop ? 1200 : MediaQuery.of(context).size.width - 20,
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(18.0),
-                        child: Text(
-                          "Request New Document",
-                          style: TextStyle(fontSize: 20.0),
+      body: SafeArea(
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Row(
+                children: [
+                  const AdminDrawer(page: "requestDocument",),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        AppBar(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black,
+                          elevation: 0.0,
+                          title: Text("Request New Document"),
+                          centerTitle: true,
                         ),
-                      ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 8.0,
-                                    horizontal: 10.0,
-                                  ),
-                                  child: Column(
+                        Expanded(
+                          child: SizedBox(
+                            width:
+                                isDesktop ? 1200 : MediaQuery.of(context).size.width - 20,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Row(
                                     children: [
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: DataTable(
-                                              columns: const [
-                                                DataColumn(
-                                                    label: Text("Title")),
-                                                DataColumn(
-                                                    label: Text("Value")),
-                                              ],
-                                              rows: [
-                                                getDataRow(
-                                                    "Business Name", user.name),
-                                                getDataRow("Business Email",
-                                                    user.email),
-                                                getDataRow("Contact Number",
-                                                    user.contactNo),
-                                                getDataRow("Business Address",
-                                                    user.address),
-                                                getDataRow(
-                                                    "Business Type", user.type),
+                                      Expanded(
+                                        child: Card(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0,
+                                              horizontal: 10.0,
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: DataTable(
+                                                        columns: const [
+                                                          DataColumn(
+                                                              label: Text("Title")),
+                                                          DataColumn(
+                                                              label: Text("Value")),
+                                                        ],
+                                                        rows: [
+                                                          getDataRow(
+                                                              "Business Name", user.name),
+                                                          getDataRow("Business Email",
+                                                              user.email),
+                                                          getDataRow("Contact Number",
+                                                              user.contactNo),
+                                                          getDataRow("Business Address",
+                                                              user.address),
+                                                          getDataRow(
+                                                              "Business Type", user.type),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
                                               ],
                                             ),
                                           ),
-                                        ],
-                                      )
+                                        ),
+                                      ),
+                                      documentsListContainer(),
                                     ],
                                   ),
                                 ),
-                              ),
-                            ),
-                            documentsListContainer(),
-                          ],
-                        ),
-                      ),
-                      const Text(
-                        "Please confirm your data before applying for the document",
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      isUploading
-                          ? const CircularProgressIndicator()
-                          : Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      applyForCertificates();
-                                    },
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 10.0, horizontal: 20.0),
-                                      child: Text("Apply"),
-                                    )),
-                                const SizedBox(
-                                  width: 10.0,
+                                const Text(
+                                  "Please confirm your data before applying for the document",
                                 ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    clearDocuments();
-                                  },
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.red)),
-                                  child: const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 10.0, horizontal: 20.0),
-                                    child: Text("Clear"),
-                                  ),
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                isUploading
+                                    ? const CircularProgressIndicator()
+                                    : Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                applyForCertificates();
+                                              },
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 10.0, horizontal: 20.0),
+                                                child: Text("Apply"),
+                                              )),
+                                          const SizedBox(
+                                            width: 10.0,
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              clearDocuments();
+                                            },
+                                            style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.red)),
+                                            child: const Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.0, horizontal: 20.0),
+                                              child: Text("Clear"),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                const SizedBox(
+                                  height: 20.0,
                                 ),
                               ],
                             ),
-                      const SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+      ),
     );
   }
 

@@ -16,18 +16,24 @@ class user_dash extends StatefulWidget {
 class _user_dashState extends State<user_dash> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    print("in");
+    return Scaffold(
         body: Row(
           children: [
             Container(
-              child: const AdminDrawer(),
+              child: const AdminDrawer(page: "userDash"),
             ),
             Expanded(
               child: Column(
                 children: [
                   Container(
-                    child: const DashboardScreen(),
+                    child: AppBar(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      elevation: 0.0,
+                      title: Text("Dashboard"),
+                      centerTitle: true,
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.all(20),
@@ -108,8 +114,7 @@ class _user_dashState extends State<user_dash> {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 
   title({required Color color}) {}

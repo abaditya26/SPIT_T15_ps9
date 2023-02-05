@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:securing_documents/screens/top_nav.dart';
+import 'package:securing_documents/screens/user_dash.dart';
 import '../admin/screens/admin_dash_screen.dart';
 import '../services/auth_services.dart';
 import '../services/database_services.dart';
@@ -67,7 +68,7 @@ class _DashBarState extends State<DashBar> {
                     type: PageTransitionType.scale,
                     alignment: Alignment.center,
                     duration: const Duration(milliseconds: 500),
-                    child: const DashboardScreen(),
+                    child: const user_dash(),
                   ),
                   (route) => false);
             }

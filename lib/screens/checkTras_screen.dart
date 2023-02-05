@@ -20,7 +20,7 @@ class _CheckTransScreenState extends State<CheckTransScreen> {
         body: Row(
           children: [
             Container(
-              child: AdminDrawer(),
+              child: const AdminDrawer(page: "transactions",),
             ),
             Expanded(
               child: Column(

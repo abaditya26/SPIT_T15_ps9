@@ -45,11 +45,11 @@ class DatabaseServices {
     DocumentSnapshot snap = await _db.collection("users").doc(uid).get();
     return UserModel(
       uid: snap["uid"],
-      email: snap["email"],
-      name: snap["name"],
-      contactNo: snap["contactNo"],
-      address: snap["address"],
-      type: snap["type"],
+      email: snap["businessEmail"],
+      name: snap["businessName"],
+      contactNo: snap["businessContact"],
+      address: snap["businessAddress"],
+      type: snap["businessType"],
       role: snap["role"],
     );
   }

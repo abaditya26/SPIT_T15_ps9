@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 
 
-class progress_tracker extends StatefulWidget {
-  @override
-  _progress_tracker createState() => _progress_tracker();
-}
+class progress_tracker extends StatelessWidget {
+  final double progressValue;
 
-class _progress_tracker extends State<progress_tracker> {
-  final double _progressValue = 4.0;
-
+  const progress_tracker({super.key, required this.progressValue});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +21,12 @@ class _progress_tracker extends State<progress_tracker> {
               child: LinearProgressIndicator(
                 backgroundColor: Colors.grey,
                 color: Colors.lightBlueAccent,
-                value: _progressValue*0.01,
+                value: progressValue*0.01,
               ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text('Progress: ${(_progressValue * 1).round()}%'),
+              child: Text('Progress: ${(progressValue * 1).round()}%'),
             ),
 
 
