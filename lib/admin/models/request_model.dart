@@ -3,7 +3,6 @@ import 'package:securing_documents/admin/models/document_model.dart';
 
 class AdminRequestModel {
   String? id,
-      requestId,
       businessName,
       businessEmail,
       businessContact,
@@ -14,9 +13,10 @@ class AdminRequestModel {
       comments,
       responseComment;
   int? assignedTo;
+  int? requestId;
   int? requiredLevels;
   List<DocumentRequirementModel>? documentList;
-  List<String>? respondedList;
+  List<dynamic>? respondedList;
   String? documentId;
   String? documentName;
   int? documentCharge;
@@ -66,6 +66,7 @@ class AdminRequestModel {
     respondedList = snap.get("respondedList");
     documentId = snap.get("documentId");
     documentName = snap.get("documentName");
+    businessType = snap.get("businessType");
     documentDescription = snap.get("documentDescription");
     documentCharge = snap.get("documentCharge");
     documentTimeRequired = snap.get("documentTimeRequired");

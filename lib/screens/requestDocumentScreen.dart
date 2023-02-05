@@ -406,7 +406,14 @@ class _RequestDocumentScreenState extends State<RequestDocumentScreen> {
                       child: const Text("OK"))
                 ],
               ));
-      clearDocuments();
+      for (var doc in _selectedOption.requiredDocuments) {
+        if (doc.fileName.isNotEmpty) {
+          doc.url = "";
+          doc.fileName = "";
+          doc.uploading = false;
+          setState(() {});
+        }
+      }
     }).catchError((e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Error :- ${e}")));

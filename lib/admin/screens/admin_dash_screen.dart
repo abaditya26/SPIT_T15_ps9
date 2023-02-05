@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:securing_documents/admin/models/request_model.dart';
+import 'package:securing_documents/admin/screens/admin_view_request.dart';
 import 'package:securing_documents/admin/services/admin_database_services.dart';
 import 'package:securing_documents/admin/widgets/admin_dash_widgets.dart';
 import 'package:securing_documents/admin/widgets/common_widgets.dart';
@@ -89,7 +90,7 @@ class _AdminDashScreenState extends State<AdminDashScreen> {
                                         Text(request.id ?? ""),
                                       ),
                                       DataCell(
-                                        Text(request.requestId ?? ""),
+                                        Text("${request.requestId}"),
                                       ),
                                       DataCell(
                                         Text(request.businessName ?? ""),
@@ -103,32 +104,51 @@ class _AdminDashScreenState extends State<AdminDashScreen> {
                                       DataCell(Row(
                                         children: [
                                           ElevatedButton(
-                                              onPressed: () {},
+                                              onPressed: () {
+                                                Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                AdminViewRequest(
+                                                                    requestData:
+                                                                        request)))
+                                                    .then((value) {
+                                                  isLoading = true;
+                                                  setState(() {});
+                                                  databaseMethods
+                                                      .getRecentRequests()
+                                                      .then((requests) {
+                                                    this.requests = requests;
+                                                    isLoading = false;
+                                                    setState(() {});
+                                                  });
+                                                });
+                                              },
                                               child: const Text("View")),
-                                          const SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {},
-                                            style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.green),
-                                            ),
-                                            child: const Text("Approve"),
-                                          ),
-                                          const SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          ElevatedButton(
-                                            onPressed: () {},
-                                            style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.red),
-                                            ),
-                                            child: const Text("Deny"),
-                                          ),
+                                          // const SizedBox(
+                                          //   width: 10.0,
+                                          // ),
+                                          // ElevatedButton(
+                                          //   onPressed: () {},
+                                          //   style: ButtonStyle(
+                                          //     backgroundColor:
+                                          //         MaterialStateProperty.all(
+                                          //             Colors.green),
+                                          //   ),
+                                          //   child: const Text("Approve"),
+                                          // ),
+                                          // const SizedBox(
+                                          //   width: 10.0,
+                                          // ),
+                                          // ElevatedButton(
+                                          //   onPressed: () {},
+                                          //   style: ButtonStyle(
+                                          //     backgroundColor:
+                                          //         MaterialStateProperty.all(
+                                          //             Colors.red),
+                                          //   ),
+                                          //   child: const Text("Deny"),
+                                          // ),
                                         ],
                                       )),
                                     ],
