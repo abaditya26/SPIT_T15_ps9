@@ -14,8 +14,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       SafeArea(
         child: Card(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children:  [
+                Text("Dashboard",),
                 Row(
                   children: [
                     IconButton(onPressed: (){}, icon: const Icon(Icons.settings), iconSize: 30,),
