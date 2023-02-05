@@ -55,7 +55,7 @@ class _user_dashState extends State<user_dash> {
                           child: const TransparentImageCard(
                             width: 250,
                             imageProvider:
-                                AssetImage('assets/images/12345.png'),
+                                AssetImage('assets/images/documents.jpg'),
                             title: Text(
                               'Documents',
                               style: TextStyle(color: Colors.white),
@@ -77,7 +77,7 @@ class _user_dashState extends State<user_dash> {
                           child: const TransparentImageCard(
                             width: 250,
                             imageProvider:
-                                AssetImage('assets/images/12345.png'),
+                                AssetImage('assets/images/request.jpg'),
                             title: Text(
                               'Request Certification',
                               style: TextStyle(color: Colors.white),
@@ -99,9 +99,9 @@ class _user_dashState extends State<user_dash> {
                           child: const TransparentImageCard(
                             width: 250,
                             imageProvider:
-                                AssetImage('assets/images/12345.png'),
+                                AssetImage('assets/images/application.jpg'),
                             title: Text(
-                              'Check Transaction History',
+                              'Check Application History',
                               style: TextStyle(color: Colors.white),
                             ),
                           ),

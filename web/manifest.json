@@ -1,6 +1,6 @@
 {
-    "name": "securing_documents",
-    "short_name": "securing_documents",
+    "name": "BizBoost",
+    "short_name": "BizBoost",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -54,7 +54,8 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+        return MaterialApp(
+          title: 'BizBoost',
       home: isLoading
           ? Scaffold(
               body: Center(

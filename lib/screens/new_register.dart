@@ -23,7 +23,7 @@ class new_registration extends StatelessWidget {
                     Icons.business,
                     size: 35,
                   ),
-                  Text("  Business Manager",
+                  Text("  BizBoost",
                       style: TextStyle(
                         fontSize: 30,
                         color: Colors.black45,
