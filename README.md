@@ -1,25 +1,6 @@
 # securing_documents with BizBoost
 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-
-<p align="center">
-<img src="https://user-images.githubusercontent.com/69450294/206444726-c47e42b6-c123-4994-8244-ea7006c6852a.jpg" data-canonical-src="https://user-images.githubusercontent.com/69450294/206444726-c47e42b6-c123-4994-8244-ea7006c6852a.jpg" width="200" height="400" />
-</p>
-
-
 Project Demo Link - https://spit-ps9.web.app/
 
 
