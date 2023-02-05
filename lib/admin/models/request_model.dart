@@ -1,33 +1,45 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:securing_documents/admin/models/document_model.dart';
-import 'package:securing_documents/admin/models/responded_model.dart';
 
 class AdminRequestModel {
   String? id,
       requestId,
       businessName,
+      businessEmail,
+      businessContact,
+      businessAddress,
+      businessType,
       documentType,
       status,
       comments,
       responseComment;
   int? assignedTo;
   int? requiredLevels;
-  List<DocumentModel>? documentList;
+  List<DocumentRequirementModel>? documentList;
   List<String>? respondedList;
+  String? documentId;
+  String? documentName;
+  int? documentCharge;
+  int? documentTimeRequired;
+  String? documentDescription;
 
-  AdminRequestModel({
-    this.id,
-    this.requestId,
-    this.businessName,
-    this.documentType,
-    this.status,
-    this.comments,
-    this.responseComment,
-    this.documentList,
-    this.assignedTo,
-    this.requiredLevels,
-    this.respondedList,
-  });
+  AdminRequestModel(
+      {this.id,
+      this.requestId,
+      this.businessName,
+      this.documentType,
+      this.status,
+      this.comments,
+      this.responseComment,
+      this.documentList,
+      this.assignedTo,
+      this.requiredLevels,
+      this.respondedList,
+      this.documentCharge,
+      this.documentDescription,
+      this.documentId,
+      this.documentName,
+      this.documentTimeRequired});
 
   // AdminRequestModel.fromMap(Map<String, dynamic> map) {
   //   id = map.containsKey("id") ? map["id"] : null;
@@ -52,21 +64,25 @@ class AdminRequestModel {
     assignedTo = snap.get("assignedTo");
     requiredLevels = snap.get("requiredLevels");
     respondedList = snap.get("respondedList");
+    documentId = snap.get("documentId");
+    documentName = snap.get("documentName");
+    documentDescription = snap.get("documentDescription");
+    documentCharge = snap.get("documentCharge");
+    documentTimeRequired = snap.get("documentTimeRequired");
 
-    //get responded list
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      "id": id,
-      "requestId": requestId,
-      "businessName": businessName,
-      "documentType": documentType,
-      "status": status,
-      "comments": comments,
-      "responseComment": responseComment,
-      "assignedTo": assignedTo,
-      "respondedList": respondedList,
-    };
-  }
+  // Map<String, dynamic> toMap() {
+  //   return {
+  //     "id": id,
+  //     "requestId": requestId,
+  //     "businessName": businessName,
+  //     "documentType": documentType,
+  //     "status": status,
+  //     "comments": comments,
+  //     "responseComment": responseComment,
+  //     "assignedTo": assignedTo,
+  //     "respondedList": respondedList,
+  //   };
+  // }
 }

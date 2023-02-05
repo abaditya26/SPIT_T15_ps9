@@ -35,3 +35,57 @@
 //     });
 //   }
 // }
+
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:securing_documents/models/user_document_model.dart';
+import 'package:securing_documents/services/auth_services.dart';
+
+class StorageServices {
+  final storageRef = FirebaseStorage.instance;
+  final _picker = ImagePicker();
+  final uid = AuthServices().getUid();
+
+  uploadDocument(DocumentRequirementModel document, BuildContext context,
+      Function(DocumentRequirementModel document) uploadImage) async {
+    //select document
+    final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
+
+    //upload document
+    Uint8List imageData = await XFile(file!.path).readAsBytes();
+    document.fileName = file.name;
+    UploadTask uploadTask = storageRef
+        .ref("documents/$uid/${document.title}_${file.name}")
+        .putData(imageData);
+    uploadTask.snapshotEvents.listen((event) async {
+      switch (event.state) {
+        case TaskState.running:
+          // updateProgress(progress);
+          break;
+        case TaskState.paused:
+          break;
+        case TaskState.canceled:
+          break;
+        case TaskState.error:
+          break;
+        case TaskState.success:
+          //Document uploaded to firestore
+          document.url = await storageRef
+              .ref("documents/$uid/${document.title}_${file.name}")
+              .getDownloadURL();
+          print(document.fileName);
+          uploadImage(document);
+          break;
+      }
+    });
+  }
+
+  Future<void> removeImage(DocumentRequirementModel document) async {
+    try {
+      await storageRef.ref(
+          "documents/$uid/${document.title}_${document.fileName}").delete();
+    }catch(e){}
+  }
+}

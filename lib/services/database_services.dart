@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:securing_documents/models/user_document_model.dart';
 import 'package:securing_documents/models/user_model.dart';
 import 'package:securing_documents/services/auth_services.dart';
 
@@ -10,7 +12,6 @@ class DatabaseServices {
   }
 
   Future<Map<String, dynamic>> validateUser(String uid) async {
-
     DocumentSnapshot documentSnapshot =
         await _db.collection("users").doc(uid).get();
     if (documentSnapshot.exists) {
@@ -19,7 +20,7 @@ class DatabaseServices {
           return {
             "admin": true,
           };
-        }else {
+        } else {
           return {
             "admin": false,
           };
@@ -55,10 +56,62 @@ class DatabaseServices {
   Stream<QuerySnapshot> getUsers() {
     return _db.collection("users").orderBy("name").snapshots();
   }
+
   Future<void> addTransactions(UserModel user) {
     return _db.collection("transactions").doc(user.uid).set(user.toMap());
   }
+
   Stream<QuerySnapshot> getTransaction() {
     return _db.collection("transactions").orderBy("id").snapshots();
+  }
+
+  Future<void> createRequest(
+      UserModel user, DocumentModel selectedOption) async {
+    //get request count
+    int nextId = 0;
+
+    // Get the latest reference ID from Firestore
+    QuerySnapshot snapshot = await _db
+        .collection('documents')
+        .orderBy('requestId', descending: true)
+        .limit(1)
+        .get();
+    if (snapshot.docs.length > 0) {
+      nextId = snapshot.docs[0]['requestId'] + 1;
+      // nextId = snapshot.docs[0].data()['requestId'] + 1;
+    }
+    DocumentReference ref =
+        await _db.collection("requests").add(user.toMap(otherData: {
+              "id": "",
+              "requestId": nextId,
+              "documentType": "",
+              "status": "Forwarded to desk 1",
+              "responseComment": "",
+              "comments": "",
+              "assignedTo": 1,
+              "requiredLevels": selectedOption.levelsCount,
+              "respondedList": [],
+              "documentId": selectedOption.id,
+              "documentName": selectedOption.name,
+              "documentCharge": selectedOption.charge,
+              "documentTimeRequired": selectedOption.timeRequired,
+              "documentDescription": selectedOption.description,
+              "timestamp": Timestamp.now(),
+            }));
+    await _db.collection("requests").doc(ref.id).update({"id": ref.id});
+    for (var doc in selectedOption.requiredDocuments) {
+      //upload all documents to cloud
+      DocumentReference ref1 = await _db
+          .collection("requests")
+          .doc(ref.id)
+          .collection("documents")
+          .add(doc.toMap());
+      await _db
+          .collection("requests")
+          .doc(ref.id)
+          .collection("documents")
+          .doc(ref1.id)
+          .update({"id": ref.id});
+    }
   }
 }

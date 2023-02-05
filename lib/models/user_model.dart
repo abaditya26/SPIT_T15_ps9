@@ -14,15 +14,17 @@ class UserModel {
         this.role = "user",
       });
 
-  Map<String, dynamic> toMap() {
-    return {
-      "email": email,
+  Map<String, dynamic> toMap({Map<String, dynamic> otherData = const {}}) {
+    Map<String, dynamic> map =  {
+      "businessEmail": email,
       "uid": uid,
-      "name": name,
-      "contactNo": contactNo,
-      "address": address,
-      "type": type,
+      "businessName": name,
+      "businessContact": contactNo,
+      "businessAddress": address,
+      "businessType": type,
       "role": role,
         };
+    map.addAll(otherData);
+    return map;
   }
 }
