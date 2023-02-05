@@ -30,21 +30,8 @@ rasa run actions --cors "*"
 
 ## Description
 
-# Chat history logger
+On top of the web app developed, we have also created, a 2 way Voice enabled conversation AI, based on natural language processing which extracts the intent from user and understand it and then give its response according. 
 
-The chat history logger requires the Rasa custom action server to be running at port 5055. After every story ends, the chats will be saved into the chats.csv excel file in the following format:
+This AI acts as a means of a helpdesk assistant, which will provide businessman, functionality to interact with it. 
 
-1) Intent
-2) User input
-3) Action
-4) Bot Reply
-
-# Form Filling
-
-The form filling is used for taking form inputs from user and save it in file (userdata.csv)
-Following inputs are taken from user:
-
-1) Name
-2) Phone Number
-3) Email
-4) Aadhar Number
+And ask basic questions regarding the licences like what documents are needed, what charges have to be paid, what is the estimated time taken to get licence accepted.
